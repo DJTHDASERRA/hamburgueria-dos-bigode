@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Catálogo — HAMBURGUERIA DOS BIGODES</title>
+
+  <!-- CSS embutido (mobile-first, responsivo) -->
+  <style>
+    :root {
+      --bg: #0b0b0d;
+      --card: #121214;
+      --muted: #a8a8ad;
+      --fg: #f3f4f6;
+      --brand: #f59e0b;
+      --accent: #22c55e;
+      --danger: #ef4444;
+      --glass: rgba(255, 255, 255, 0.03);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
+      color: var(--fg);
+      background: linear-gradient(180deg, #060607 0%, #0b0b0d 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px;
+      background: var(--card);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5)
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      object-fit: cover
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      margin: 0
+    }
+
+    .header .nav {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .btn {
+      padding: 9px 12px;
+      border-radius: 12px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600
+    }
+
+    .btn.brand {
+      background: var(--brand);
+      color: #111
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--fg)
+    }
+
+    .badge {
+      background: var(--brand);
+      color: #111;
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px
+    }
+
+    .hero {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px
+    }
+
+    .hero .left {
+      flex: 1
+    }
+
+    .hero .right {
+      width: 180px
+    }
+
+    .hero h2 {
+      margin: 0 0 6px 0;
+      font-size: 20px
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .searchbar {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0
+    }
+
+    .input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: var(--glass);
+      color: var(--fg)
+    }
+
+    .select {
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      background: var(--glass);
+      color: var(--fg)
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr))
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column
+    }
+
+    .card .imgwrap {
+      height: 170px;
+      overflow: hidden;
+      background: #0c0c0f;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .card .body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 16px
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.25
+    }
+
+    .card .foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 8px
+    }
+
+    .price {
+      font-weight: 800
+    }
+
+    .cartbar {
+      position: fixed;
+      right: 16px;
+      bottom: 18px;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 10px 12px;
+      display: flex;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.03)
+    }
+
+    .cartcount {
+      background: var(--accent);
+      color: #061;
+      min-width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .footer {
+      text-align: center;
+      padding: 28px 16px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 36px
+    }
+
+    /* responsive */
+    @media (max-width:720px) {
+      .hero {
+        flex-direction: column;
+        align-items: flex-start
+      }
+
+      .hero .right {
+        width: 100%;
+        height: 140px;
+        overflow: hidden
+      }
+
+      .card .imgwrap {
+        height: 150px
+      }
+
+      .container {
+        padding: 12px
+      }
+
+      .header {
+        padding: 10px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header" role="banner">
+      <div class="brand">
+        <img src="assets/logo.png" alt="HDB Logo">
+        <div>
+          <h1>HAMBURGUERIA DOS BIGODES</h1>
+          <div style="font-size:13px;color:var(--muted)">Burgers artesanais • Entrega rápida</div>
+        </div>
+      </div>
+      <div class="nav" role="navigation">
+        <a class="btn ghost" href="index.html">Home</a>
+        <a class="btn ghost" href="cart.html">Carrinho</a>
+        <a class="btn ghost" href="track.html">Acompanhar</a>
+        <a class="btn ghost" href="reviews.html">Avaliações</a>
+      </div>
+    </div>
+
+    <!-- Hero + Search -->
+    <div class="hero">
+      <div class="left">
+        <h2>Catálogo — Escolha seu sabor</h2>
+        <p>10 hambúrgueres artesanais, porções e bebidas. Clique em "Adicionar" para montar seu pedido.</p>
+
+        <div class="searchbar" style="margin-top:12px">
+          <input id="q" class="input" placeholder="Pesquisar (ex.: bacon, veg, picante)" />
+          <select id="filter" class="select">
+            <option value="all">Todos</option>
+            <option value="burger">Hambúrgueres</option>
+            <option value="side">Porções</option>
+            <option value="drink">Bebidas</option>
+          </select>
+          <button class="btn brand" onclick="applyFilters()">Buscar</button>
+        </div>
+      </div>
+      <div class="right">
+        <img src="assets/hero.png" alt="Hero" style="width:100%;height:100%;object-fit:cover;border-radius:12px">
+      </div>
+    </div>
+
+    <!-- Product grid -->
+    <div id="prodGrid" class="grid" aria-live="polite"></div>
+
+    <div class="footer">© 2025 HAMBURGUERIA DOS BIGODES • Termos • Privacidade</div>
+  </div>
+
+  <!-- floating cart quick access -->
+  <div class="cartbar" role="status" title="Abrir carrinho">
+    <div>
+      <div class="small">Seu carrinho</div>
+      <div style="font-weight:800" id="cartTotalTxt">R$ 0,00</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end">
+      <div class="cartcount" id="cartCount">0</div>
+      <button class="btn brand" style="margin-top:8px" onclick="gotoCart()">Ver carrinho</button>
+    </div>
+  </div>
+
+  <!-- JS embutido: catálogo, cart localStorage, filtros e responsividade -->
+  <script>
+    /* ====== DADOS DOS PRODUTOS (estáticos no front) ======
+       id: número único (use para cart)
+       kind: 'burger' | 'side' | 'drink'
+       image: caminho relativo (assets/<nome>.png)
+    */
+    const PRODUCTS = [
+      { id: 101, kind: 'burger', name: 'Bigode Clássico', description: 'Hambúrguer bovino 160g, queijo, alface, tomate e molho da casa.', price: 24.90, image: 'assets/bigode-classico.png' },
+      { id: 102, kind: 'burger', name: 'Bigode Duplo', description: 'Dois smash 100g, cheddar duplo e picles.', price: 32.90, image: 'assets/bigode-duplo.png' },
+      { id: 103, kind: 'burger', name: 'Bigode Bacon', description: 'Burger 160g com bacon crocante e queijo prato.', price: 29.90, image: 'assets/bigode-bacon.png' },
+      { id: 104, kind: 'burger', name: 'Bigode Veg', description: 'Burger vegetal, queijo vegano, salada e maionese verde.', price: 27.90, image: 'assets/bigode-veg.png' },
+      { id: 105, kind: 'burger', name: 'Bigode BBQ', description: 'Hambúrguer com molho barbecue, onion rings e queijo cheddar.', price: 34.90, image: 'assets/bigode-bbq.png' },
+      { id: 106, kind: 'burger', name: 'Bigode Picanha', description: 'Hambúrguer de picanha 180g, queijo coalho e maionese especial.', price: 39.90, image: 'assets/bigode-picanha.png' },
+      { id: 107, kind: 'burger', name: 'Bigode Frango Crocante', description: 'Hambúrguer de frango empanado, alface e molho honey mustard.', price: 28.90, image: 'assets/bigode-frango.png' },
+      { id: 108, kind: 'burger', name: 'Bigode Blue', description: 'Hambúrguer com queijo gorgonzola, cebola caramelizada e rúcula.', price: 36.90, image: 'assets/bigode-blue.png' },
+      { id: 109, kind: 'burger', name: 'Bigode Mex', description: 'Hambúrguer com jalapeños, queijo pepper jack e molho picante.', price: 33.90, image: 'assets/bigode-mex.png' },
+      { id: 110, kind: 'burger', name: 'Bigode Triplo', description: 'Três burgers 90g, queijo, bacon e molho especial.', price: 44.90, image: 'assets/bigode-triplo.png' },
+
+      /* porções */
+      { id: 201, kind: 'side', name: 'Batata Bigode (Cheddar & Bacon)', description: 'Porção de batatas fritas com molho cheddar e bacon crocante.', price: 19.90, image: 'assets/batata-cheddar-bacon.png' },
+      { id: 202, kind: 'side', name: 'Batata Simples', description: 'Porção de batatas fritas crocantes 350g.', price: 14.90, image: 'assets/batata-bigode.png' },
+      { id: 203, kind: 'side', name: 'Nuggets (8 unidades)', description: 'Nuggets crocantes servidos com molho à escolha.', price: 16.90, image: 'assets/nuggets.png' },
+      { id: 204, kind: 'side', name: 'Onion Rings', description: 'Cebola empanada crocante — porção ideal para compartilhar.', price: 15.90, image: 'assets/onion-rings.png' },
+
+      /* bebidas */
+      { id: 301, kind: 'drink', name: 'Coca-Cola Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'assets/coke.png' },
+      { id: 302, kind: 'drink', name: 'Guaraná Antarctica Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'assets/guarana.png' },
+      { id: 303, kind: 'drink', name: 'Sprite Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'assets/sprite.png' },
+      { id: 304, kind: 'drink', name: 'Fanta Laranja Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'assets/fanta.png' },
+      { id: 305, kind: 'drink', name: 'Água Mineral 500ml', description: 'Água mineral sem gás 500ml', price: 4.90, image: 'assets/agua.png' }
+    ];
+
+    /* ====== Helpers ====== */
+    function fmtBRL(v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
+
+    function loadCart() {
+      try {
+        return JSON.parse(localStorage.getItem('cart') || '[]');
+      } catch (e) { return []; }
+    }
+    function saveCart(cart) { localStorage.setItem('cart', JSON.stringify(cart)); updateCartUI(); }
+    function addToCart(product) {
+      const cart = loadCart();
+      const found = cart.find(x => x.id === product.id);
+      if (found) found.qty += 1;
+      else cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, qty: 1 });
+      saveCart(cart);
+      toast('Adicionado ao carrinho');
+    }
+    function updateCartUI() {
+      const cart = loadCart();
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
+      document.getElementById('cartTotalTxt').textContent = fmtBRL(total);
+    }
+
+    /* simple toast */
+    function toast(msg) {
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.cssText = 'position:fixed;right:16px;bottom:90px;background:#111;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);z-index:999;color:#fff';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 2200);
+    }
+
+    /* ====== Render products ====== */
+    function renderProducts(list) {
+      const grid = document.getElementById('prodGrid');
+      if (!list || list.length === 0) {
+        grid.innerHTML = '<div style="color:var(--muted);padding:20px">Nenhum item encontrado.</div>';
+        return;
+      }
+      grid.innerHTML = list.map(p => `
+    <div class="card" data-kind="${p.kind}">
+      <div class="imgwrap">
+        <img src="${p.image}" alt="${escapeHtml(p.name)}" onerror="this.onerror=null;this.src='assets/hero.png'">
+      </div>
+      <div class="body">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+          <div style="flex:1">
+            <h3>${escapeHtml(p.name)}</h3>
+            <p>${escapeHtml(p.description)}</p>
+          </div>
+          <div style="text-align:right">
+            <div class="price">${fmtBRL(p.price)}</div>
+            <div style="margin-top:6px">
+              <button class="btn brand" onclick='addToCartById(${p.id})'>Adicionar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+    }
+
+    function addToCartById(id) {
+      const p = PRODUCTS.find(x => x.id === id);
+      if (!p) return toast('Produto não encontrado');
+      addToCart(p);
+    }
+
+    /* ====== Filters and search ====== */
+    function applyFilters() {
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      const kind = document.getElementById('filter').value;
+      let filtered = PRODUCTS.slice();
+      if (kind !== 'all') filtered = filtered.filter(p => p.kind === kind);
+      if (q) filtered = filtered.filter(p => (p.name + ' ' + p.description).toLowerCase().includes(q));
+      renderProducts(filtered);
+    }
+
+    /* ====== util: escape HTML to avoid injection in names/descriptions ====== */
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[s]);
+    }
+
+    /* ====== on load ====== */
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProducts(PRODUCTS);
+      updateCartUI();
+
+      // Support "enter" in search
+      document.getElementById('q').addEventListener('keydown', (e) => { if (e.key === 'Enter') applyFilters(); });
+    });
+
+    /* quick goto cart (uses existing cart.html from project) */
+    function gotoCart() {
+      window.location.href = 'cart.html';
+    }
+  </script>
+</body>
+
+</html>

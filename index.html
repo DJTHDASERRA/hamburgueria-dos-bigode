@@ -1,0 +1,117 @@
+
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HAMBURGUERIA DOS BIGODES</title>
+
+
+
+<meta name="description" content="Hambúrgueres artesanais com entrega rápida. Peça online na HAMBURGUERIA DOS BIGODES.">
+<meta property="og:title" content="HAMBURGUERIA DOS BIGODES">
+<meta property="og:description" content="Sabor que marca presença — peça seu burger online.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/hero.png">
+<link rel="icon" href="favicon.ico">
+
+<style>
+
+:root{
+  --bg:#0d0d0f;
+  --card:#131316;
+  --fg:#f3f4f6;
+  --muted:#a1a1aa;
+  --brand:#f59e0b;
+  --accent:#22c55e;
+  --danger:#ef4444;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Arial,sans-serif}
+.container{max-width:1100px;margin:0 auto;padding:16px}
+.nav{display:flex;gap:12px;align-items:center;justify-content:space-between;background:var(--card);padding:10px 16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #222}
+.nav a{color:var(--fg);text-decoration:none;padding:8px 12px;border-radius:12px}
+.nav a:hover{background:#1c1c22}
+.btn{padding:10px 14px;border-radius:12px;border:none;cursor:pointer}
+.btn.brand{background:var(--brand);color:#111}
+.btn.ghost{background:#1c1c22;color:var(--fg)}
+.grid{display:grid;gap:16px}
+.grid.cols-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid #222;border-radius:16px;overflow:hidden}
+.card .p{padding:14px}
+.price{font-weight:700}
+.badge{font-size:12px;color:#111;background:var(--brand);padding:4px 8px;border-radius:999px}
+.footer{color:var(--muted);text-align:center;padding:32px}
+.input, .select, .textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #2a2a2f;background:#101014;color:var(--fg)}
+.section{padding:24px 0}
+.hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px;align-items:center}
+.hero h1{font-size:44px;margin:0}
+.hero p{color:var(--muted)}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{border-bottom:1px solid #222;padding:12px;text-align:left}
+.rating{display:flex;gap:4px}
+.star{font-size:22px;cursor:pointer}
+.toast{position:fixed;right:16px;bottom:16px;background:#111;border:1px solid #222;padding:12px 14px;border-radius:12px}
+@media (max-width:800px){.hero{grid-template-columns:1fr}}
+
+</style>
+</head><body>
+<div class="nav container">
+  <div><a href="index.html"><strong>🍔 HDB</strong></a></div>
+  <div style="display:flex;gap:8px">
+    <a href="catalog.html">Catálogo</a>
+    <a href="cart.html">Carrinho</a>
+    <a href="track.html">Acompanhar</a>
+    <a href="about.html">Sobre</a>
+    <a href="reviews.html">Avaliações</a>
+    <a href="login.html">Entrar</a>
+  </div>
+</div>
+
+<div class="container section hero">
+  <div>
+    <h1>HAMBURGUERIA DOS BIGODES</h1>
+    <p>Sabor que marca presença: burgers artesanais, crocantes e suculentos. Faça seu pedido online e receba no conforto da sua casa.</p>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <a class="btn brand" href="catalog.html">Pedir agora</a>
+      <a class="btn ghost" href="about.html">Conhecer</a>
+    </div>
+  </div>
+  <div class="card"><img src="assets/hero.png" style="width:100%;height:100%;object-fit:cover"></div>
+</div>
+
+<div class="container section">
+  <h2>Destaques</h2>
+  <div class="grid cols-3">
+    <div class="card"><img src="assets/bigode-classico.png" style="width:100%;height:180px;object-fit:cover"><div class="p"><strong>Bigode Clássico</strong><p style="color:#aaa">Nosso campeão de vendas.</p></div></div>
+    <div class="card"><img src="assets/bigode-duplo.png" style="width:100%;height:180px;object-fit:cover"><div class="p"><strong>Bigode Duplo</strong><p style="color:#aaa">Mais queijo, mais suculência.</p></div></div>
+    <div class="card"><img src="assets/bigode-bacon.png" style="width:100%;height:180px;object-fit:cover"><div class="p"><strong>Bigode Bacon</strong><p style="color:#aaa">Bacon crocante de verdade.</p></div></div>
+  </div>
+</div>
+
+<div class="footer">© 2025 HAMBURGUERIA DOS BIGODES • <a href="terms.html">Termos</a> • <a href="privacy.html">Privacidade</a></div>
+<script>
+
+const API_BASE = localStorage.getItem('API_BASE') || 'http://localhost:3001';
+function toast(msg){const el=document.createElement('div');el.className='toast';el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),2500);}
+function fmtBRL(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function navActive(){
+  document.querySelectorAll('.nav a').forEach(a=>{
+    if (a.href === window.location.href) a.style.background='#1c1c22';
+  });
+}
+document.addEventListener('DOMContentLoaded', navActive);
+
+
+async function api(path, opts={}){
+  const token = localStorage.getItem('token');
+  const headers = {'Content-Type':'application/json', ...(opts.headers||{})};
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  const res = await fetch(API_BASE + path, {...opts, headers});
+  if (!res.ok){
+    let msg='Erro';
+    try{ const j = await res.json(); msg = j.error || msg; }catch{}
+    throw new Error(msg);
+  }
+  return res.json();
+}
+
+</script>
+</body></html>
