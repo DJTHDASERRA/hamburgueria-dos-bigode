@@ -109,7 +109,6 @@ async function api(path, opts={}){
   }
   return res.json();
 }
-
 function renderCart(){
   const cart = JSON.parse(localStorage.getItem('cart')||'[]');
   const list = document.querySelector('#cartList');
