@@ -291,7 +291,7 @@
     <!-- Header -->
     <div class="header" role="banner">
       <div class="brand">
-        <img src="assets/logo.png" alt="HDB Logo">
+        <img src="logo.png" alt="HDB Logo">
         <div>
           <h1>HAMBURGUERIA DOS BIGODES</h1>
           <div style="font-size:13px;color:var(--muted)">Burgers artesanais • Entrega rápida</div>
@@ -323,7 +323,7 @@
         </div>
       </div>
       <div class="right">
-        <img src="assets/hero.png" alt="Hero" style="width:100%;height:100%;object-fit:cover;border-radius:12px">
+        <img src="hero.png" alt="Hero" style="width:100%;height:100%;object-fit:cover;border-radius:12px">
       </div>
     </div>
 
@@ -353,29 +353,29 @@
        image: caminho relativo (assets/<nome>.png)
     */
     const PRODUCTS = [
-      { id: 101, kind: 'burger', name: 'Bigode Clássico', description: 'Hambúrguer bovino 160g, queijo, alface, tomate e molho da casa.', price: 24.90, image: 'assets/bigode-classico.png' },
-      { id: 102, kind: 'burger', name: 'Bigode Duplo', description: 'Dois smash 100g, cheddar duplo e picles.', price: 32.90, image: 'assets/bigode-duplo.png' },
-      { id: 103, kind: 'burger', name: 'Bigode Bacon', description: 'Burger 160g com bacon crocante e queijo prato.', price: 29.90, image: 'assets/bigode-bacon.png' },
-      { id: 104, kind: 'burger', name: 'Bigode Veg', description: 'Burger vegetal, queijo vegano, salada e maionese verde.', price: 27.90, image: 'assets/bigode-veg.png' },
-      { id: 105, kind: 'burger', name: 'Bigode BBQ', description: 'Hambúrguer com molho barbecue, onion rings e queijo cheddar.', price: 34.90, image: 'assets/bigode-bbq.png' },
-      { id: 106, kind: 'burger', name: 'Bigode Picanha', description: 'Hambúrguer de picanha 180g, queijo coalho e maionese especial.', price: 39.90, image: 'assets/bigode-picanha.png' },
-      { id: 107, kind: 'burger', name: 'Bigode Frango Crocante', description: 'Hambúrguer de frango empanado, alface e molho honey mustard.', price: 28.90, image: 'assets/bigode-frango.png' },
-      { id: 108, kind: 'burger', name: 'Bigode Blue', description: 'Hambúrguer com queijo gorgonzola, cebola caramelizada e rúcula.', price: 36.90, image: 'assets/bigode-blue.png' },
-      { id: 109, kind: 'burger', name: 'Bigode Mex', description: 'Hambúrguer com jalapeños, queijo pepper jack e molho picante.', price: 33.90, image: 'assets/bigode-mex.png' },
-      { id: 110, kind: 'burger', name: 'Bigode Triplo', description: 'Três burgers 90g, queijo, bacon e molho especial.', price: 44.90, image: 'assets/bigode-triplo.png' },
+      { id: 101, kind: 'burger', name: 'Bigode Clássico', description: 'Hambúrguer bovino 160g, queijo, alface, tomate e molho da casa.', price: 24.90, image: 'bigode-classico.png' },
+      { id: 102, kind: 'burger', name: 'Bigode Duplo', description: 'Dois smash 100g, cheddar duplo e picles.', price: 32.90, image: 'bigode-duplo.png' },
+      { id: 103, kind: 'burger', name: 'Bigode Bacon', description: 'Burger 160g com bacon crocante e queijo prato.', price: 29.90, image: 'bigode-bacon.png' },
+      { id: 104, kind: 'burger', name: 'Bigode Veg', description: 'Burger vegetal, queijo vegano, salada e maionese verde.', price: 27.90, image: 'bigode-veg.png' },
+      { id: 105, kind: 'burger', name: 'Bigode BBQ', description: 'Hambúrguer com molho barbecue, onion rings e queijo cheddar.', price: 34.90, image: 'bigode-bbq.png' },
+      { id: 106, kind: 'burger', name: 'Bigode Picanha', description: 'Hambúrguer de picanha 180g, queijo coalho e maionese especial.', price: 39.90, image: 'bigode-picanha.png' },
+      { id: 107, kind: 'burger', name: 'Bigode Frango Crocante', description: 'Hambúrguer de frango empanado, alface e molho honey mustard.', price: 28.90, image: 'bigode-frango.png' },
+      { id: 108, kind: 'burger', name: 'Bigode Blue', description: 'Hambúrguer com queijo gorgonzola, cebola caramelizada e rúcula.', price: 36.90, image: 'bigode-blue.png' },
+      { id: 109, kind: 'burger', name: 'Bigode Mex', description: 'Hambúrguer com jalapeños, queijo pepper jack e molho picante.', price: 33.90, image: 'bigode-mex.png' },
+      { id: 110, kind: 'burger', name: 'Bigode Triplo', description: 'Três burgers 90g, queijo, bacon e molho especial.', price: 44.90, image: 'bigode-triplo.png' },
 
       /* porções */
-      { id: 201, kind: 'side', name: 'Batata Bigode (Cheddar & Bacon)', description: 'Porção de batatas fritas com molho cheddar e bacon crocante.', price: 19.90, image: 'assets/batata-cheddar-bacon.png' },
-      { id: 202, kind: 'side', name: 'Batata Simples', description: 'Porção de batatas fritas crocantes 350g.', price: 14.90, image: 'assets/batata-bigode.png' },
-      { id: 203, kind: 'side', name: 'Nuggets (8 unidades)', description: 'Nuggets crocantes servidos com molho à escolha.', price: 16.90, image: 'assets/nuggets.png' },
-      { id: 204, kind: 'side', name: 'Onion Rings', description: 'Cebola empanada crocante — porção ideal para compartilhar.', price: 15.90, image: 'assets/onion-rings.png' },
+      { id: 201, kind: 'side', name: 'Batata Bigode (Cheddar & Bacon)', description: 'Porção de batatas fritas com molho cheddar e bacon crocante.', price: 19.90, image: 'batata-cheddar-bacon.png' },
+      { id: 202, kind: 'side', name: 'Batata Simples', description: 'Porção de batatas fritas crocantes 350g.', price: 14.90, image: 'batata-bigode.png' },
+      { id: 203, kind: 'side', name: 'Nuggets (8 unidades)', description: 'Nuggets crocantes servidos com molho à escolha.', price: 16.90, image: 'nuggets.png' },
+      { id: 204, kind: 'side', name: 'Onion Rings', description: 'Cebola empanada crocante — porção ideal para compartilhar.', price: 15.90, image: 'onion-rings.png' },
 
       /* bebidas */
-      { id: 301, kind: 'drink', name: 'Coca-Cola Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'assets/coke.png' },
-      { id: 302, kind: 'drink', name: 'Guaraná Antarctica Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'assets/guarana.png' },
-      { id: 303, kind: 'drink', name: 'Sprite Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'assets/sprite.png' },
-      { id: 304, kind: 'drink', name: 'Fanta Laranja Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'assets/fanta.png' },
-      { id: 305, kind: 'drink', name: 'Água Mineral 500ml', description: 'Água mineral sem gás 500ml', price: 4.90, image: 'assets/agua.png' }
+      { id: 301, kind: 'drink', name: 'Coca-Cola Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'coca.png' },
+      { id: 302, kind: 'drink', name: 'Guaraná Antarctica Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'guarana.png' },
+      { id: 303, kind: 'drink', name: 'Sprite Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'sprite.png' },
+      { id: 304, kind: 'drink', name: 'Fanta Laranja Lata 350ml', description: 'Refrigerante 350ml', price: 6.90, image: 'fanta.png' },
+      { id: 305, kind: 'drink', name: 'Água Mineral 500ml', description: 'Água mineral sem gás 500ml', price: 4.90, image: 'agua.png' }
     ];
 
     /* ====== Helpers ====== */
@@ -421,7 +421,7 @@
       grid.innerHTML = list.map(p => `
     <div class="card" data-kind="${p.kind}">
       <div class="imgwrap">
-        <img src="${p.image}" alt="${escapeHtml(p.name)}" onerror="this.onerror=null;this.src='assets/hero.png'">
+        <img src="${p.image}" alt="${escapeHtml(p.name)}" onerror="this.onerror=null;this.src='hero.png'">
       </div>
       <div class="body">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
