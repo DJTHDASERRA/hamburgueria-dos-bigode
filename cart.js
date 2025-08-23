@@ -61,7 +61,7 @@ async function checkout(){
 document.addEventListener('DOMContentLoaded', renderCart);
 
 
-function finalizarPedido() {
+function checkout(){
     let idPedido = "PED" + Math.floor(Math.random() * 10000); // gera ID simples
     let nome = document.getElementById("nome")?.value || "Não informado";
     let telefone = document.getElementById("telefone")?.value || "Não informado";
