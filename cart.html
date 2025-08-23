@@ -1,121 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-<!DOCTYPE html><html lang="pt-BR"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Carrinho — HAMBURGUERIA DOS BIGODES</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrinho — HAMBURGUERIA DOS BIGODES</title>
 
 
 
 
 
-<style>
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --card: #131316;
+      --fg: #f3f4f6;
+      --muted: #a1a1aa;
+      --brand: #f59e0b;
+      --accent: #22c55e;
+      --danger: #ef4444;
+    }
 
-:root{
-  --bg:#0d0d0f;
-  --card:#131316;
-  --fg:#f3f4f6;
-  --muted:#a1a1aa;
-  --brand:#f59e0b;
-  --accent:#22c55e;
-  --danger:#ef4444;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Arial,sans-serif}
-.container{max-width:1100px;margin:0 auto;padding:16px}
-.nav{display:flex;gap:12px;align-items:center;justify-content:space-between;background:var(--card);padding:10px 16px;position:sticky;top:0;z-index:10;border-bottom:1px solid #222}
-.nav a{color:var(--fg);text-decoration:none;padding:8px 12px;border-radius:12px}
-.nav a:hover{background:#1c1c22}
-.btn{padding:10px 14px;border-radius:12px;border:none;cursor:pointer}
-.btn.brand{background:var(--brand);color:#111}
-.btn.ghost{background:#1c1c22;color:var(--fg)}
-.grid{display:grid;gap:16px}
-.grid.cols-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.card{background:var(--card);border:1px solid #222;border-radius:16px;overflow:hidden}
-.card .p{padding:14px}
-.price{font-weight:700}
-.badge{font-size:12px;color:#111;background:var(--brand);padding:4px 8px;border-radius:999px}
-.footer{color:var(--muted);text-align:center;padding:32px}
-.input, .select, .textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #2a2a2f;background:#101014;color:var(--fg)}
-.section{padding:24px 0}
-.hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px;align-items:center}
-.hero h1{font-size:44px;margin:0}
-.hero p{color:var(--muted)}
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{border-bottom:1px solid #222;padding:12px;text-align:left}
-.rating{display:flex;gap:4px}
-.star{font-size:22px;cursor:pointer}
-.toast{position:fixed;right:16px;bottom:16px;background:#111;border:1px solid #222;padding:12px 14px;border-radius:12px}
-@media (max-width:800px){.hero{grid-template-columns:1fr}}
+    * {
+      box-sizing: border-box
+    }
 
-</style>
-</head><body onload="requireAuth()">
-<div class="nav container">
-  <div><a href="index.html"><strong>🍔 HDB</strong></a></div>
-  <div style="display:flex;gap:8px">
-    <a href="catalog.html">Catálogo</a>
-    <a href="cart.html">Carrinho</a>
-    <a href="track.html">Acompanhar</a>
-    <a href="about.html">Sobre</a>
-    <a href="reviews.html">Avaliações</a>
-  </div>
-</div>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Inter, system-ui, Arial, sans-serif
+    }
 
-<div class="container section">
-  <h2>Seu carrinho</h2>
-  <div id="cartList" class="grid"></div>
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px
+    }
 
-  <div class="card p" style="margin-top:16px">
-    <h3>Entrega</h3>
-    <label>Endereço (ou deixe vazio para retirada)</label>
-    <input class="input" id="address" placeholder="Rua, número, bairro"/>
-    <label>Forma de pagamento</label>
-    <select class="select" id="payment">
-      <option value="PIX">PIX</option>
-      <option value="Cartão">Cartão</option>
-      <option value="Dinheiro">Dinheiro</option>
-    </select>
-    <label>Observação</label>
-    <textarea class="textarea" id="note" placeholder="Ex.: tirar cebola"></textarea>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-      <strong>Total: <span id="cartTotal">R$ 0,00</span></strong>
-      <button class="btn brand" onclick="checkout()">Finalizar pedido</button>
+    .nav {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card);
+      padding: 10px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #222
+    }
+
+    .nav a {
+      color: var(--fg);
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 12px
+    }
+
+    .nav a:hover {
+      background: #1c1c22
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer
+    }
+
+    .btn.brand {
+      background: var(--brand);
+      color: #111
+    }
+
+    .btn.ghost {
+      background: #1c1c22;
+      color: var(--fg)
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px
+    }
+
+    .grid.cols-3 {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid #222;
+      border-radius: 16px;
+      overflow: hidden
+    }
+
+    .card .p {
+      padding: 14px
+    }
+
+    .price {
+      font-weight: 700
+    }
+
+    .badge {
+      font-size: 12px;
+      color: #111;
+      background: var(--brand);
+      padding: 4px 8px;
+      border-radius: 999px
+    }
+
+    .footer {
+      color: var(--muted);
+      text-align: center;
+      padding: 32px
+    }
+
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #2a2a2f;
+      background: #101014;
+      color: var(--fg)
+    }
+
+    .section {
+      padding: 24px 0
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: center
+    }
+
+    .hero h1 {
+      font-size: 44px;
+      margin: 0
+    }
+
+    .hero p {
+      color: var(--muted)
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse
+    }
+
+    .table th,
+    .table td {
+      border-bottom: 1px solid #222;
+      padding: 12px;
+      text-align: left
+    }
+
+    .rating {
+      display: flex;
+      gap: 4px
+    }
+
+    .star {
+      font-size: 22px;
+      cursor: pointer
+    }
+
+    .toast {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: #111;
+      border: 1px solid #222;
+      padding: 12px 14px;
+      border-radius: 12px
+    }
+
+    @media (max-width:800px) {
+      .hero {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+</head>
+
+<body onload="requireAuth()">
+  <div class="nav container">
+    <div><a href="index.html"><strong>🍔 HDB</strong></a></div>
+    <div style="display:flex;gap:8px">
+      <a href="catalog.html">Catálogo</a>
+      <a href="cart.html">Carrinho</a>
+      <a href="track.html">Acompanhar</a>
+      <a href="about.html">Sobre</a>
+      <a href="reviews.html">Avaliações</a>
     </div>
-    <small style="color:#777">Ao finalizar, o WhatsApp abrirá com seu pedido pronto para envio.</small>
   </div>
-</div>
 
-<div class="footer">© 2025 HAMBURGUERIA DOS BIGODES • <a href="terms.html">Termos</a> • <a href="privacy.html">Privacidade</a></div>
-<script>
+  <div class="container section">
+    <h2>Seu carrinho</h2>
+    <div id="cartList" class="grid"></div>
 
-const API_BASE = localStorage.getItem('API_BASE') || 'http://localhost:3001';
-function toast(msg){const el=document.createElement('div');el.className='toast';el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),2500);}
-function fmtBRL(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
-function navActive(){
-  document.querySelectorAll('.nav a').forEach(a=>{
-    if (a.href === window.location.href) a.style.background='#1c1c22';
-  });
-}
-document.addEventListener('DOMContentLoaded', navActive);
+    <div class="card p" style="margin-top:16px">
+      <h3>Entrega</h3>
+      <label>Endereço (ou deixe vazio para retirada)</label>
+      <input class="input" id="address" placeholder="Rua, número, bairro" />
+      <label>Forma de pagamento</label>
+      <select class="select" id="payment">
+        <option value="PIX">PIX</option>
+        <option value="Cartão">Cartão</option>
+        <option value="Dinheiro">Dinheiro</option>
+      </select>
+      <label>Observação</label>
+      <textarea class="textarea" id="note" placeholder="Ex.: tirar cebola"></textarea>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+        <strong>Total: <span id="cartTotal">R$ 0,00</span></strong>
+        <button class="btn brand" onclick="checkout()">Finalizar pedido</button>
+      </div>
+      <small style="color:#777">Ao finalizar, o WhatsApp abrirá com seu pedido pronto para envio.</small>
+    </div>
+  </div>
+
+  <div class="footer">© 2025 HAMBURGUERIA DOS BIGODES • <a href="terms.html">Termos</a> • <a
+      href="privacy.html">Privacidade</a></div>
+  <script>
+
+    const API_BASE = localStorage.getItem('API_BASE') || 'http://localhost:3001';
+    function toast(msg) { const el = document.createElement('div'); el.className = 'toast'; el.textContent = msg; document.body.appendChild(el); setTimeout(() => el.remove(), 2500); }
+    function fmtBRL(v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }
+    function navActive() {
+      document.querySelectorAll('.nav a').forEach(a => {
+        if (a.href === window.location.href) a.style.background = '#1c1c22';
+      });
+    }
+    document.addEventListener('DOMContentLoaded', navActive);
 
 
-async function api(path, opts={}){
-  const token = localStorage.getItem('token');
-  const headers = {'Content-Type':'application/json', ...(opts.headers||{})};
-  if (token) headers['Authorization'] = 'Bearer ' + token;
-  const res = await fetch(API_BASE + path, {...opts, headers});
-  if (!res.ok){
-    let msg='Erro';
-    try{ const j = await res.json(); msg = j.error || msg; }catch{}
-    throw new Error(msg);
-  }
-  return res.json();
-}
+    async function api(path, opts = {}) {
+      const token = localStorage.getItem('token');
+      const headers = { 'Content-Type': 'application/json', ...(opts.headers || {}) };
+      if (token) headers['Authorization'] = 'Bearer ' + token;
+      const res = await fetch(API_BASE + path, { ...opts, headers });
+      if (!res.ok) {
+        let msg = 'Erro';
+        try { const j = await res.json(); msg = j.error || msg; } catch { }
+        throw new Error(msg);
+      }
+      return res.json();
+    }
 
-function renderCart(){
-  const cart = JSON.parse(localStorage.getItem('cart')||'[]');
-  const list = document.querySelector('#cartList');
-  const totalEl = document.querySelector('#cartTotal');
-  if(cart.length===0){ list.innerHTML = '<p>Seu carrinho está vazio.</p>'; totalEl.textContent = fmtBRL(0); return; }
-  list.innerHTML = cart.map((it,idx)=>`
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const list = document.querySelector('#cartList');
+      const totalEl = document.querySelector('#cartTotal');
+      if (cart.length === 0) { list.innerHTML = '<p>Seu carrinho está vazio.</p>'; totalEl.textContent = fmtBRL(0); return; }
+      list.innerHTML = cart.map((it, idx) => `
     <div class="card" style="display:flex;gap:12px;align-items:center;padding:8px">
       <img src="${it.image}" style="width:90px;height:70px;object-fit:cover;border-radius:8px">
       <div style="flex:1">
@@ -132,41 +276,46 @@ function renderCart(){
       </div>
     </div>
   `).join('');
-  const total = cart.reduce((s,i)=>s + i.price*i.qty, 0);
-  totalEl.textContent = fmtBRL(total);
-}
-function qty(idx,delta){
-  const cart = JSON.parse(localStorage.getItem('cart')||'[]');
-  cart[idx].qty += delta;
-  if(cart[idx].qty <= 0) cart.splice(idx,1);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  renderCart();
-}
-function removeItem(idx){
-  const cart = JSON.parse(localStorage.getItem('cart')||'[]');
-  cart.splice(idx,1);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  renderCart();
-}
-async function checkout(){
-  const cart = JSON.parse(localStorage.getItem('cart')||'[]');
-  if(cart.length===0){ return toast('Carrinho vazio'); }
-  try{
-    const address = document.querySelector('#address').value;
-    const payment = document.querySelector('#payment').value;
-    const note = document.querySelector('#note').value;
-    const items = cart.map(it => ({ product_id: it.id, name: it.name, qty: it.qty, price: it.price }));
-    const res = await api('/api/orders', { method:'POST', body: JSON.stringify({ items, address, payment_method: payment, note }) });
-    localStorage.removeItem('cart');
-    window.location.href = 'track.html?code=' + res.code + '&wa=' + encodeURIComponent(res.whatsapp);
-    setTimeout(()=>{ window.open(res.whatsapp, '_blank'); }, 400);
-  }catch(e){
-    }else{
-      toast(e.message);
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      totalEl.textContent = fmtBRL(total);
     }
-  }
-}
-document.addEventListener('DOMContentLoaded', renderCart);
+    function qty(idx, delta) {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+    function removeItem(idx) {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      cart.splice(idx, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+    async function checkout() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      if (cart.length === 0) { return toast('Carrinho vazio'); }
+      try {
+        const address = document.querySelector('#address').value;
+        const payment = document.querySelector('#payment').value;
+        const note = document.querySelector('#note').value;
+        const items = cart.map(it => ({ product_id: it.id, name: it.name, qty: it.qty, price: it.price }));
+        const res = await api('/api/orders', { method: 'POST', body: JSON.stringify({ items, address, payment_method: payment, note }) });
+        localStorage.removeItem('cart');
+        window.location.href = 'track.html?code=' + res.code + '&wa=' + encodeURIComponent(res.whatsapp);
+        setTimeout(() => { window.open(res.whatsapp, '_blank'); }, 400);
+      } catch (e) {
+        if (String(e.message).includes('Token')) {
+          toast('Faça login para finalizar');
+          window.location.href = 'login.html';
+        } else {
+          toast(e.message);
+        }
+      }
+    }
+    document.addEventListener('DOMContentLoaded', renderCart);
 
-</script>
-</body></html>
+  </script>
+</body>
+
+</html>
