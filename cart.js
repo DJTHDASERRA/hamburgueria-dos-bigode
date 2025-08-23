@@ -59,3 +59,28 @@ async function checkout(){
   }
 }
 document.addEventListener('DOMContentLoaded', renderCart);
+
+
+function finalizarPedido() {
+    let idPedido = "PED" + Math.floor(Math.random() * 10000); // gera ID simples
+    let nome = document.getElementById("nome")?.value || "Não informado";
+    let telefone = document.getElementById("telefone")?.value || "Não informado";
+    let endereco = document.getElementById("endereco")?.value || "Não informado";
+    let pagamento = document.getElementById("pagamento")?.value || "Não informado";
+
+    // Capturar itens do carrinho
+    let pedido = "";
+    if (localStorage.getItem("cartItems")) {
+        let items = JSON.parse(localStorage.getItem("cartItems"));
+        items.forEach((item, index) => {
+            pedido += `${index+1}. ${item.name} - ${item.quantity}x%0A`;
+        });
+    } else {
+        pedido = "Nenhum item no carrinho";
+    }
+
+    let mensagem = `*🍔 Novo Pedido na Hamburgueria dos Bigode!*%0A%0A🆔 ID: ${idPedido}%0A👤 Nome: ${nome}%0A📞 Telefone: ${telefone}%0A📍 Endereço: ${endereco}%0A🛒 Pedido:%0A${pedido}%0A💳 Pagamento: ${pagamento}`;
+
+    let numeroLoja = "5564999744820";
+    window.open(`https://wa.me/${numeroLoja}?text=${mensagem}`, "_blank");
+}
