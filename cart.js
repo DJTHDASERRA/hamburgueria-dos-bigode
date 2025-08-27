@@ -1,9 +1,19 @@
+<script>
+// Formata moeda
+function fmtBRL(v){
+  return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+}
 
+// Renderiza o carrinho
 function renderCart(){
   const cart = JSON.parse(localStorage.getItem('cart')||'[]');
   const list = document.querySelector('#cartList');
   const totalEl = document.querySelector('#cartTotal');
-  if(cart.length===0){ list.innerHTML = '<p>Seu carrinho está vazio.</p>'; totalEl.textContent = fmtBRL(0); return; }
+  if(cart.length===0){
+    list.innerHTML = '<p>Seu carrinho está vazio.</p>';
+    totalEl.textContent = fmtBRL(0);
+    return;
+  }
   list.innerHTML = cart.map((it,idx)=>`
     <div class="card" style="display:flex;gap:12px;align-items:center;padding:8px">
       <img src="${it.image}" style="width:90px;height:70px;object-fit:cover;border-radius:8px">
@@ -24,6 +34,8 @@ function renderCart(){
   const total = cart.reduce((s,i)=>s + i.price*i.qty, 0);
   totalEl.textContent = fmtBRL(total);
 }
+
+// Alterar quantidade
 function qty(idx,delta){
   const cart = JSON.parse(localStorage.getItem('cart')||'[]');
   cart[idx].qty += delta;
@@ -31,56 +43,42 @@ function qty(idx,delta){
   localStorage.setItem('cart', JSON.stringify(cart));
   renderCart();
 }
+
+// Remover item
 function removeItem(idx){
   const cart = JSON.parse(localStorage.getItem('cart')||'[]');
   cart.splice(idx,1);
   localStorage.setItem('cart', JSON.stringify(cart));
   renderCart();
 }
-async function checkout(){
-  const cart = JSON.parse(localStorage.getItem('cart')||'[]');
-  if(cart.length===0){ return toast('Carrinho vazio'); }
-  try{
-    const address = document.querySelector('#address').value;
-    const payment = document.querySelector('#payment').value;
-    const note = document.querySelector('#note').value;
-    const items = cart.map(it => ({ product_id: it.id, name: it.name, qty: it.qty, price: it.price }));
-    const res = await api('/api/orders', { method:'POST', body: JSON.stringify({ items, address, payment_method: payment, note }) });
-    localStorage.removeItem('cart');
-    window.location.href = 'track.html?code=' + res.code + '&wa=' + encodeURIComponent(res.whatsapp);
-    setTimeout(()=>{ window.open(res.whatsapp, '_blank'); }, 400);
-  }catch(e){
-    if(String(e.message).includes('Token')){
-      toast('Faça login para finalizar');
-      window.location.href = 'login.html';
-    }else{
-      toast(e.message);
-    }
-  }
-}
-document.addEventListener('DOMContentLoaded', renderCart);
 
-
+// Finalizar pedido via WhatsApp
 function checkout(){
-    let idPedido = "PED" + Math.floor(Math.random() * 10000); // gera ID simples
-    let nome = document.getElementById("nome")?.value || "Não informado";
-    let telefone = document.getElementById("telefone")?.value || "Não informado";
-    let endereco = document.getElementById("endereco")?.value || "Não informado";
-    let pagamento = document.getElementById("pagamento")?.value || "Não informado";
+  let idPedido = "PED" + Math.floor(Math.random() * 10000); // gera ID simples
+  let nome = document.getElementById("nome")?.value || "Não informado";
+  let telefone = document.getElementById("telefone")?.value || "Não informado";
+  let endereco = document.getElementById("endereco")?.value || "Não informado";
+  let pagamento = document.getElementById("pagamento")?.value || "Não informado";
+  let observacao = document.getElementById("note")?.value || "";
 
-    // Capturar itens do carrinho
-    let pedido = "";
-    if (localStorage.getItem("cartItems")) {
-        let items = JSON.parse(localStorage.getItem("cartItems"));
-        items.forEach((item, index) => {
-            pedido += `${index+1}. ${item.name} - ${item.quantity}x%0A`;
-        });
-    } else {
-        pedido = "Nenhum item no carrinho";
-    }
+  // Capturar itens do carrinho (mesma chave "cart")
+  let pedido = "";
+  if (localStorage.getItem("cart")) {
+    let items = JSON.parse(localStorage.getItem("cart"));
+    items.forEach((item, index) => {
+      pedido += `${index+1}. ${item.name} - ${item.qty}x%0A`;
+    });
+  } else {
+    pedido = "Nenhum item no carrinho";
+  }
 
-    let mensagem = `*🍔 Novo Pedido na Hamburgueria dos Bigode!*%0A%0A🆔 ID: ${idPedido}%0A👤 Nome: ${nome}%0A📞 Telefone: ${telefone}%0A📍 Endereço: ${endereco}%0A🛒 Pedido:%0A${pedido}%0A💳 Pagamento: ${pagamento}`;
+  let mensagem = `*🍔 Novo Pedido na Hamburgueria dos Bigode!*%0A%0A🆔 ID: ${idPedido}%0A👤 Nome: ${nome}%0A📞 Telefone: ${telefone}%0A📍 Endereço: ${endereco}%0A🛒 Pedido:%0A${pedido}%0A💳 Pagamento: ${pagamento}%0A📝 Obs: ${observacao}`;
 
-    let numeroLoja = "5564999744820";
-    window.open(`https://wa.me/${numeroLoja}?text=${mensagem}`, "_blank");
+  let numeroLoja = "5564999744820"; // número do WhatsApp da loja
+  window.open(`https://wa.me/${numeroLoja}?text=${mensagem}`, "_blank");
+  localStorage.removeItem("cart"); // limpa carrinho após enviar
 }
+
+// Inicia renderização ao carregar a página
+document.addEventListener('DOMContentLoaded', renderCart);
+</script>
