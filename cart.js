@@ -1,10 +1,3 @@
-<script>
-// Formata moeda
-function fmtBRL(v){
-  return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-}
-
-// Renderiza o carrinho
 function renderCart(){
   const cart = JSON.parse(localStorage.getItem('cart')||'[]');
   const list = document.querySelector('#cartList');
