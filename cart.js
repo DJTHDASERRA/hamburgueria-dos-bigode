@@ -74,4 +74,3 @@ function checkout(){
 
 // Inicia renderização ao carregar a página
 document.addEventListener('DOMContentLoaded', renderCart);
-</script>
