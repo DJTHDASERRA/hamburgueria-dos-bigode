@@ -2,11 +2,6 @@
 <!DOCTYPE html><html lang="pt-BR"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Carrinho — HAMBURGUERIA DOS BIGODES</title>
-
-
-
-
-
 <style>
 
 :root{
@@ -109,6 +104,19 @@ async function api(path, opts={}){
   }
   return res.json();
 }
+
+
+function requireAuth(){
+  const t = localStorage.getItem('token');
+  if(!t){ window.location.href = 'login.html'; }
+}
+function setUserUI(){
+  const display = document.querySelector('#userDisplay');
+  const name = localStorage.getItem('user_name');
+  if(display) display.textContent = name ? 'Olá, ' + name : 'Olá!';
+}
+document.addEventListener('DOMContentLoaded', setUserUI);
+
 
 function renderCart(){
   const cart = JSON.parse(localStorage.getItem('cart')||'[]');
