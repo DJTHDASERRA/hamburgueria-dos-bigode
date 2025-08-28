@@ -155,9 +155,7 @@ async function checkout(){
     localStorage.removeItem('cart');
     window.location.href = 'track.html?code=' + res.code + '&wa=' + encodeURIComponent(res.whatsapp);
     setTimeout(()=>{ window.open(res.whatsapp, '_blank'); }, 400);
-  }catch(e)}else{
-      toast(e.message);
-    }
+  }catch(e)}
   }
 }
 document.addEventListener('DOMContentLoaded', renderCart);
