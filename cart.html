@@ -155,11 +155,7 @@ async function checkout(){
     localStorage.removeItem('cart');
     window.location.href = 'track.html?code=' + res.code + '&wa=' + encodeURIComponent(res.whatsapp);
     setTimeout(()=>{ window.open(res.whatsapp, '_blank'); }, 400);
-  }catch(e){
-    if(String(e.message).includes('Token')){
-      toast('Faça login para finalizar');
-      window.location.href = 'login.html';
-    }else{
+  }catch(e)}else{
       toast(e.message);
     }
   }
